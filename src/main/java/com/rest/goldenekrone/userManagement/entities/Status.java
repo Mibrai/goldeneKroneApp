@@ -1,6 +1,6 @@
 package com.rest.goldenekrone.userManagement.entities;
 
-public enum Pwd_Status {
+public enum Status {
     ACTIVE,
-    DISABLE
+    PASSIF
 }

@@ -34,4 +34,11 @@ public class AdressService {
 
         adressRepository.deleteById(id);
     }
+
+    private void save(Adress adress) throws AdressNotFoundException {
+        if(adress.getId() != null)
+            adressRepository.save(adress);
+        else
+            throw new AdressNotFoundException("Given Adress is empty");
+    }
 }

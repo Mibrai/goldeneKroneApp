@@ -34,5 +34,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    private void save(User user) throws UserNotFoundException {
+        if(user.getId() != null)
+            userRepository.save(user);
+        else
+            throw new UserNotFoundException("Given User is empty");
+    }
 
 }

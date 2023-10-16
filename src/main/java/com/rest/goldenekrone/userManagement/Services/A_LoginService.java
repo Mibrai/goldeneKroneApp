@@ -33,4 +33,15 @@ public class A_LoginService {
 
         aLoginRepository.deleteById(id);
     }
+
+    private A_Login getAloginByUser(Long userId){
+        return aLoginRepository.getAloginByUser(userId);
+    }
+
+    private void save(A_Login aLogin) throws A_LoginNotFoundException {
+        if(aLogin.getId() != null)
+            aLoginRepository.save(aLogin);
+        else
+            throw new A_LoginNotFoundException("Given ALogin is empty");
+    }
 }

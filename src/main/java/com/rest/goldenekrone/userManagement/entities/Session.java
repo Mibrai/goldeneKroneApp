@@ -19,6 +19,9 @@ public class Session {
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public Session(){}
 
     public Session(Long id, String token, LocalDateTime date) {

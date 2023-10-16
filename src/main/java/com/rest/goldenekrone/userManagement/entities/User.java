@@ -1,7 +1,6 @@
 package com.rest.goldenekrone.userManagement.entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.jpa.repository.Temporal;
 
 import java.sql.Date;
 
@@ -16,6 +15,9 @@ public class User {
 
     @Column(unique = true, length = 50, nullable = false)
     private String username;
+
+    @Column(length = 100, nullable = false)
+    private String password;
 
     @Column(length = 50, nullable = false)
     private String firstname;
@@ -40,17 +42,18 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String username, String firstname, String lastname,
-                String email, Date birthday, int acces,
-                Long k_adresse) {
+    public User(Long id, String username, String password,
+                String firstname, String lastname, String email,
+                Date birthday, int acces, Long k_adress) {
         this.id = id;
         this.username = username;
+        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.birthday = birthday;
         this.acces = acces;
-        this.k_adress = k_adresse;
+        this.k_adress = k_adress;
     }
 
     public Long getId() {
@@ -64,6 +67,10 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {this.password = password;}
 
     public void setUsername(String username) {
         this.username = username;
@@ -122,12 +129,13 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", birthday=" + birthday +
                 ", acces=" + acces +
-                ", k_adresse=" + k_adress +
+                ", k_adress=" + k_adress +
                 '}';
     }
 }

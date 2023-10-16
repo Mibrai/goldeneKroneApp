@@ -16,7 +16,7 @@ public class PasswordChain {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Pwd_Status status;
+    private Status status;
 
     @Column(nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date date;
@@ -36,7 +36,7 @@ public class PasswordChain {
 
     public PasswordChain() {}
 
-    public PasswordChain(Long id, String password, Pwd_Status status, Date date) {
+    public PasswordChain(Long id, String password, Status status, Date date) {
         this.id = id;
         this.password = password;
         this.status = status;
@@ -52,11 +52,11 @@ public class PasswordChain {
         this.password = password;
     }
 
-    public Pwd_Status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Pwd_Status status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

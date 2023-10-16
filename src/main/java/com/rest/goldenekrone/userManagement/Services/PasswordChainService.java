@@ -34,4 +34,11 @@ public class PasswordChainService {
 
         passwordChainRepository.deleteById(id);
     }
+
+    private void save(PasswordChain passwordChain) throws PasswordChainNotFoundException {
+        if(passwordChain.getId() != null)
+            passwordChainRepository.save(passwordChain);
+        else
+            throw new PasswordChainNotFoundException("Given Passwordchain is empty");
+    }
 }

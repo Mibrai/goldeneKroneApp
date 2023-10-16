@@ -35,4 +35,11 @@ public class SessionService {
 
         sessionRepository.deleteById(id);
     }
+
+    private void save(Session session) throws SessionNotFoundException {
+        if(session.getId() != null)
+            sessionRepository.save(session);
+        else
+            throw new SessionNotFoundException("Given Session is empty");
+    }
 }
