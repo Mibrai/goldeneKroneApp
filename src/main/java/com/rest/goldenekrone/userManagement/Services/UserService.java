@@ -12,11 +12,11 @@ import java.util.Optional;
 public class UserService {
     @Autowired  private UserRepository userRepository;
 
-    private Iterable<User> getAllUser(){
+    public Iterable<User> getAllUser(){
         return userRepository.findAll();
     }
 
-    private User getUserById(Long id) throws UserNotFoundException {
+    public User getUserById(Long id) throws UserNotFoundException {
         Optional<User> user = userRepository.findAllById(id);
 
         if( user.isPresent())
@@ -25,7 +25,7 @@ public class UserService {
         throw  new UserNotFoundException("User with the given ID not found");
     }
 
-    private void deleteById(Long id) throws UserNotFoundException {
+    public void deleteById(Long id) throws UserNotFoundException {
         Long count = userRepository.countById(id);
         if(count == null || count == 0){
             throw new UserNotFoundException("Could not find any users with ID "+ id);
@@ -34,11 +34,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    private void save(User user) throws UserNotFoundException {
-        if(user.getId() != null)
-            userRepository.save(user);
-        else
+    public void save(User user) throws UserNotFoundException {
+        if(user.getId() == null && (user.getUsername() == null || user.getUsername() == "") && (user.getPassword() == null || user.getPassword() == ""))
             throw new UserNotFoundException("Given User is empty");
+
+        userRepository.save(user);
     }
 
 }

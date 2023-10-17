@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Adress User</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+</head>
+<body>
+  <h2>Add Adress To User [[${currentUsername}]]</h2>
+
+  <div class="container">
+    <div class="row">
+       <div class="col-6">
+
+            <form th:object="${adress}" th:action="@{/saveAdress}" th:method="post" name="formAddAdress">
+
+              <fieldset>
+                <legend>Adress Info</legend>
+
+                <div class="form-floating mb-3">
+                  <input type="text" th:field="*{city}" class="form-control" id="floatingInputCity" placeholder="Jaunde">
+                  <label for="floatingInputCity">City</label>
+                </div>
+
+                <div class="form-floating">
+                  <input type="text" th:field="*{land}" class="form-control" id="floatingInputLand" placeholder="Kamerun">
+                  <label for="floatingInputLand">Land</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="text" th:field="*{quater}" class="form-control" id="floatingInputQuater" placeholder="Mvog Mbi">
+                  <label for="floatingInputQuater">Quater</label>
+                </div>
+
+                <div class="form-floating">
+                  <input type="text" th:field="*{phoneNumber}" class="form-control" id="floatingInputPhonenumber" placeholder="+237 699 99399">
+                  <label for="floatingInputPhonenumber">Phone Number</label>
+                </div>
+
+                <div class="form-floating">
+                  <input type="text" th:field="*{street}" class="form-control" id="floatingInputStreet" placeholder="Caen Street 24">
+                  <label for="floatingInputStreet">Street</label>
+                </div>
+
+              </fieldset>
+
+              <fieldset>
+                <div class="row text-center" style="margin:8px; width:100%;">
+                  <div class="col align-self-start">
+                    <button type="reset" value="Reset" class="btn btn-danger mb-3 p-1 w-50 text-white">Reset</button>
+                  </div>
+
+                  <div class="col align-self-end">
+                    <button type="submit" value="Save" class="btn btn-primary mb-3 p-1 w-50 text-white">Save</button>
+                  </div>
+                </div>
+              </fieldset>
+
+            </form>
+
+       </div>
+    </div>
+  </div>
+
+</body>
+</html>
