@@ -41,4 +41,27 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void update(User user) throws UserNotFoundException{
+        if(user.getId() != null){
+            Optional<User> tmp_user = userRepository.findById(user.getId());
+            if(tmp_user.isPresent()){
+                tmp_user.get().setBirthday(user.getBirthday());
+                tmp_user.get().setAcces(user.getAcces());
+                tmp_user.get().setEmail(user.getEmail());
+                tmp_user.get().setFirstname(user.getFirstname());
+                tmp_user.get().setLastname(user.getLastname());
+                tmp_user.get().setUsername(user.getUsername());
+                tmp_user.get().setPassword(user.getPassword());
+                tmp_user.get().setK_adress(user.getK_adress());
+
+                if(userRepository.updateUserById(tmp_user.get().getId(),tmp_user.get().getAcces(),
+                        tmp_user.get().getBirthday(),tmp_user.get().getEmail(),tmp_user.get().getFirstname(),
+                        tmp_user.get().getLastname(),tmp_user.get().getK_adress(),
+                        tmp_user.get().getPassword() ).getId() == null)
+                    throw  new UserNotFoundException("Can't update user");
+            } else throw new UserNotFoundException("User not found");
+        }
+
+    }
+
 }

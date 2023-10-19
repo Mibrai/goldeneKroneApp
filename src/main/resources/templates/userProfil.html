@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profil</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+    label i{
+      float:right;
+    }
+
+    legend{
+      color:gray;
+      font-size: 1rem;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">  <h2>Profil User</h2></div>
+    </div>
+
+    <div class="row justify-content-between">
+
+      <div class="col-7" style="box-shadow: 3px 3px 3px gainsboro">
+
+        <input type="hidden" th:value="${user.id}" class="form-control" disabled>
+
+        <fieldset>
+          <legend>Login Data &nbsp; <a href="#" data-bs-target="#modalEditUser" data-bs-toggle="modal"><i class="bi bi-pencil-square"></i></a> </legend>
+
+          <div class="form-floating mb-3">
+            <input type="text" th:value="'@' + ${user.username}" class="form-control" id="floatingUsername" disabled>
+            <label for="floatingUsername">Username</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" th:value="${user.password}" class="form-control" id="floatingPassword" disabled>
+            <label for="floatingPassword">Password</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Other Infos</legend>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:value="${user.firstname}"  id="floatingFirstname" disabled>
+            <label for="floatingFirstname">Firstname</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" th:value="${user.lastname}" id="floatingLastname" disabled>
+            <label for="floatingLastname">Lastname</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" th:value="${user.email}"  id="floatingEmail" disabled>
+            <label for="floatingEmail">Email</label>
+          </div>
+          <div class="form-floating">
+            <input type="date" class="form-control" th:value="${user.birthday}" id="floatingBirthday" disabled>
+            <label for="floatingBirthday">Birthday</label>
+          </div>
+
+        </fieldset>
+
+      </div>
+
+      <div class="col-4" style="box-shadow: 3px 3px 3px 3px gainsboro">
+        <fieldset>
+            <legend>Adress &nbsp; <a href="#" data-bs-target="#modalNewAdress" data-bs-toggle="modal"><i class="bi bi-pencil-square"></i></a> </legend>
+
+          <!--  List all adress -->
+          <div th:if=" ${user.getK_adress() != null} ">
+
+            <div class="form-floating mb-3">
+              <input type="text" th:value="${adress.getLand()}" class="form-control" id="floatingLand" disabled>
+              <label for="floatingLand">Land &nbsp; <i class="bi bi-flag"></i></label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" th:value="${adress.getCity()}" class="form-control" id="floatingCity" disabled>
+              <label for="floatingCity">City &nbsp; <i class="bi bi-buildings"></i></label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" th:value="${adress.getQuater()}" class="form-control" id="floatingQuater" disabled>
+              <label for="floatingQuater">Quater &nbsp; <i class="bi bi-houses"></i></label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" th:value="${adress.getStreet()}" class="form-control" id="floatingStreet" disabled>
+              <label for="floatingStreet">Street &nbsp; <i class="bi bi-sign-intersection-y"></i></label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" th:value="${adress.getPhoneNumber()}" class="form-control" id="floatingPhonenumber" disabled>
+              <label for="floatingPhonenumber">Phonenumber &nbsp; <i class="bi bi-telephone"></i></label>
+            </div>
+
+          </div>
+
+          <!-- End List -->
+
+        </fieldset>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Modal Edit Adress -->
+  <div class="modal fade" id="modalNewAdress" tabindex="-1" aria-labelledby="modalAddAdress" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalAddAdress">Add Adress to @[[${user.username}]]</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form th:object="${adress}" th:action="@{/saveAdress}" th:method="post" name="formAddAdress">
+
+            <fieldset>
+              <legend>Adress Info</legend>
+
+              <div class="form-floating mb-3">
+                <input type="text" th:field="*{city}" class="form-control" id="floatingInputCity" placeholder="Jaunde">
+                <label for="floatingInputCity">City</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="text" th:field="*{land}" class="form-control" id="floatingInputLand" placeholder="Kamerun">
+                <label for="floatingInputLand">Land</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="text" th:field="*{quater}" class="form-control" id="floatingInputQuater" placeholder="Mvog Mbi">
+                <label for="floatingInputQuater">Quater</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="text" th:field="*{phoneNumber}" class="form-control" id="floatingInputPhonenumber" placeholder="+237 699 99399">
+                <label for="floatingInputPhonenumber">Phone Number</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="text" th:field="*{street}" class="form-control" id="floatingInputStreet" placeholder="Caen Street 24">
+                <label for="floatingInputStreet">Street</label>
+              </div>
+
+            </fieldset>
+
+            <fieldset>
+              <div class="row text-center" style="margin:8px; width:100%;">
+                <div class="col align-self-start">
+                  <button type="reset" value="Reset" class="btn btn-danger mb-3 p-1 w-50 text-white">Reset</button>
+                </div>
+
+                <div class="col align-self-end">
+                  <button type="submit" value="Save" class="btn btn-primary mb-3 p-1 w-50 text-white">Save</button>
+                </div>
+              </div>
+            </fieldset>
+
+          </form>
+        </div>
+        <div class="modal-footer" style="text-align: center !important;">
+          <span style="color:gainsboro; font-family: 'Segoe Script';">Form Add Adress to User</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit User -->
+  <div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="modalEditUser" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalEditUserTitle">Edit user @[[${user.username}]]</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/saveUser}" th:method="post" name="formAddUser" th:object="${user}">
+            <input type="hidden" th:field="*{id}" class="form-control"  disabled>
+
+            <fieldset>
+              <legend>Login Data</legend>
+
+              <div class="form-floating mb-3">
+                <input type="text" th:field="*{username}" class="form-control" id="floatingInput" placeholder="@Username" disabled>
+                <label for="floatingInput">Username</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" th:field="*{password}" class="form-control" id="floatingInputPassword" placeholder="Password">
+                <label for="floatingInputPassword">Password</label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Other Infos</legend>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" th:field="*{firstname}"  id="floatingInputFirstname" placeholder="Lucas">
+                <label for="floatingInputFirstname">Firstname</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" th:field="*{lastname}" id="floatingInputLastname" placeholder="Dragnir">
+                <label for="floatingInputLastname">Lastname</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" th:field="*{email}"  id="floatingInputEmail" placeholder="name@domain.om">
+                <label for="floatingInputEmail">Email</label>
+              </div>
+              <div class="form-floating">
+                <input type="date" class="form-control" th:field="*{birthday}" id="floatingInputBirthday" placeholder="dd.mm.jjjj">
+                <label for="floatingInputBirthday">Birthday</label>
+              </div>
+
+            </fieldset>
+
+            <fieldset>
+              <div class="row text-center" style="margin:8px; width:100%;">
+                <div class="col align-self-start">
+                  <button type="reset" value="Reset" class="btn btn-danger mb-3 p-1 w-50 text-white">Reset</button>
+                </div>
+
+                <div class="col align-self-end">
+                  <button type="submit" value="Save" class="btn btn-primary mb-3 p-1 w-50 text-white">Save</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer" style="text-align: center !important;">
+          <span style="color:gainsboro; font-family: 'Segoe Script';">Form Edit User infos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  End Modal -->
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</body>
+</html>

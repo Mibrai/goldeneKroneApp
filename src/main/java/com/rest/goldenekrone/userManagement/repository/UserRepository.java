@@ -1,14 +1,24 @@
 package com.rest.goldenekrone.userManagement.repository;
 
 import com.rest.goldenekrone.userManagement.entities.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Long> {
     Optional<User> findAllById(Long id);
 
-    public Long countById(Long id);
+     Long countById(Long id);
+
+    @Query(value = "UPDATE user u SET u.acces = :acces, u.birthday = :birthday, u.email = :email, " +
+            "u.firstname = :firstname, u.lastname = :lastname, u.k_adress = :k_adress, " +
+            "u.password = :password WHERE u.user_id = :userId", nativeQuery = true)
+     User updateUserById(@Param("userId") Long userId, @Param("acces") int acces, @Param("birthday")Date birthday,
+                               @Param("email") String email, @Param("firstname") String firstname, @Param("lastname") String lastname,
+                               @Param("k_adress") Long k_adress, @Param("password") String password);
 }

@@ -13,20 +13,21 @@ public class AdressService {
     @Autowired
     private AdressRepository adressRepository;
 
-    private Iterable<Adress> getAllAdress(){
+    public Iterable<Adress> getAllAdress(){
         return adressRepository.findAll();
     }
 
-    private Adress getAdressById(Long id) throws AdressNotFoundException {
+    public Adress getAdressById(Long id) throws AdressNotFoundException {
         Optional<Adress> adress = adressRepository.findAllById(id);
 
         if( adress.isPresent())
             return adress.get();
 
-        throw  new AdressNotFoundException("Adress with the given ID not found");
+        return null;
+        //throw  new AdressNotFoundException("Adress with the given ID not found");
     }
 
-    private void deleteById(Long id) throws AdressNotFoundException {
+    public void deleteById(Long id) throws AdressNotFoundException {
         Long count = adressRepository.countById(id);
         if(count == null || count == 0){
             throw new AdressNotFoundException("Could not find any Adress with ID "+ id);
@@ -35,10 +36,11 @@ public class AdressService {
         adressRepository.deleteById(id);
     }
 
-    private void save(Adress adress) throws AdressNotFoundException {
-        if(adress.getId() != null)
-            adressRepository.save(adress);
-        else
+    public Adress save(Adress adress) throws AdressNotFoundException {
+        if(adress.getCity() == null && adress.getLand() == null
+                && adress.getStreet() == null && adress.getPhoneNumber() == null && adress.getQuater() == null)
             throw new AdressNotFoundException("Given Adress is empty");
+        else
+          return adressRepository.save(adress);
     }
 }
