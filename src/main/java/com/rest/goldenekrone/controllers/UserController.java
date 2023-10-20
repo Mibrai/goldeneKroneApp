@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -37,12 +38,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-    private String saveUser(User user) throws UserNotFoundException {
+    private String saveUser(User user) throws UserNotFoundException, SQLException {
         System.out.println(user.toString());
-        if(currentUser.getId() == null)
+        System.out.println(currentUser.toString());
+        if(user.getId() == null)
             userService.save(user);
-        else
+        else{
+            user = currentUser.compareAndFillUser(user);
             userService.update(user);
+        }
+
 
         return "redirect:/users";
 

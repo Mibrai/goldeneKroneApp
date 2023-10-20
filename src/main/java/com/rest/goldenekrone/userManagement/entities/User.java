@@ -124,6 +124,17 @@ public class User {
         this.k_adress = k_adresse;
     }
 
+    public User compareAndFillUser(User user){
+        this.firstname = (user.getFirstname() != null && user.getFirstname() != "") ? user.getFirstname() : firstname;
+        this.lastname = (user.getLastname() != null && user.getLastname() != "") ? user.getLastname() : lastname;
+        this.password = (user.getPassword() != null && user.getPassword() != "" ) ? user.getPassword() : password;
+        this.email = (user.getEmail() != null && user.getEmail() != "") ? user.getEmail() : email;
+        this.birthday = (user.getBirthday() != null) ? user.getBirthday() : birthday;
+        this.acces = (user.getAcces() != 0) ? user.getAcces() : acces;
+        this.k_adress = (user.getK_adress() != null) ? user.getK_adress() : k_adress;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "User{" +

@@ -182,13 +182,13 @@
         </div>
         <div class="modal-body">
           <form th:action="@{/saveUser}" th:method="post" name="formAddUser" th:object="${user}">
-            <input type="hidden" th:field="*{id}" class="form-control"  disabled>
+            <input type="hidden" th:field="*{id}" class="form-control" >
 
             <fieldset>
               <legend>Login Data</legend>
 
               <div class="form-floating mb-3">
-                <input type="text" th:field="*{username}" class="form-control" id="floatingInput" placeholder="@Username" disabled>
+                <input type="text" th:field="*{username}"  class="form-control" id="floatingInput" placeholder="@Username" readonly>
                 <label for="floatingInput">Username</label>
               </div>
               <div class="form-floating">
