@@ -32,15 +32,13 @@ public class UserController {
         return "usersView";
     }
     @GetMapping("/createUser")
-    private String loadFormAddUser(){
-
+    private String loadFormAddUser(User user,Model model){
+        model.addAttribute("user",user);
         return "formAddUser";
     }
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-    private String saveUser(User user) throws UserNotFoundException, SQLException {
-        System.out.println(user.toString());
-        System.out.println(currentUser.toString());
+    private String saveUser(User user) throws UserNotFoundException {
         if(user.getId() == null)
             userService.save(user);
         else{
