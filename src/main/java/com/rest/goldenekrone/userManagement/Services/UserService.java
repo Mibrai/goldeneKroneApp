@@ -26,6 +26,15 @@ public class UserService {
         throw  new UserNotFoundException("User with the given ID not found");
     }
 
+    public User getUserByUsername(String username) throws UserNotFoundException {
+        Optional<User> user = userRepository.findUserByUsername(username);
+
+        if( user.isPresent())
+            return user.get();
+
+        throw  new UserNotFoundException("User with the given Username not found");
+    }
+
     public void deleteById(Long id) throws UserNotFoundException {
         Long count = userRepository.countById(id);
         if(count == null || count == 0){

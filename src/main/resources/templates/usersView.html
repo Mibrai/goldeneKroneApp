@@ -9,36 +9,87 @@
 
 </head>
 <body>
-  <h2>All Users</h2>
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Username</th>
-      <th scope="col">Firstname</th>
-      <th scope="col">Lastname</th>
-      <th scope="col">Email</th>
-      <th scope="col">Birthday</th>
-      <th scope="col">View</th>
-    </tr>
-    </thead>
-    <tbody class="table-group-divider">
 
-    <th:block th:each="user,index : ${listUsers}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
 
-      <tr>
-        <th scope="row">[[${index.index + 1}]]</th>
-        <td>@[[${user.username}]]</td>
-        <td>[[${user.firstname}]]</td>
-        <td>[[${user.lastname}]]</td>
-        <td>[[${user.email}]]</td>
-        <td>[[${user.birthday}]]</td>
-        <td><a th:href="@{'/viewUser/' + ${user.id}}"><i class="bi bi-eye"></i></a></td>
-      </tr>
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">User Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/createUser">Create User</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pricing</a>
+                </li>
+              </ul>
 
-    </th:block>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+          </div>
+        </nav>
 
-    </tbody>
-  </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2>All Users</h2>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Email</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">View</th>
+          </tr>
+          </thead>
+          <tbody class="table-group-divider">
+
+          <th:block th:each="user,index : ${listUsers}">
+
+            <tr>
+              <th scope="row">[[${index.index + 1}]]</th>
+              <td>@[[${user.username}]]</td>
+              <td>[[${user.firstname}]]</td>
+              <td>[[${user.lastname}]]</td>
+              <td>[[${user.email}]]</td>
+              <td>[[${user.birthday}]]</td>
+              <td><a th:href="@{'/viewUser/' + ${user.id}}"><i class="bi bi-eye"></i></a></td>
+            </tr>
+
+          </th:block>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

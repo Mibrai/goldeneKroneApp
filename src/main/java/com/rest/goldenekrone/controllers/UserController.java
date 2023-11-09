@@ -7,16 +7,16 @@ import com.rest.goldenekrone.userManagement.entities.User;
 import com.rest.goldenekrone.userManagement.exceptions.AdressNotFoundException;
 import com.rest.goldenekrone.userManagement.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.html.Option;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -80,5 +80,32 @@ public class UserController {
         model.addAttribute("user",user);
 
         return "/userProfil";
+    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loadLoginPage(Model model){
+        model.addAttribute("message","");
+        return "login";
+    }
+
+    @RequestMapping(value = "/processLogin", method = RequestMethod.POST)
+    public String processLogin(@RequestParam(value = "username",required = true) String username,
+                               @RequestParam(value = "password", required = true) String password,
+    Model model) {
+
+        User user = new User();
+        String message = "";
+        try{
+             user = userService.getUserByUsername(username);
+        }catch (UserNotFoundException e){
+            message = "Username or Password is invalid.";
+        }
+
+        if(user.getId() != null && user.getId() != 0) {
+            // create session here
+            return "redirect:/users";
+        }
+
+        model.addAttribute("message",message);
+        return "/login";
     }
 }
