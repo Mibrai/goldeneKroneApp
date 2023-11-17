@@ -1,8 +1,11 @@
 package com.rest.goldenekrone.userManagement.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
+import java.util.Collection;
 
 @Entity
 @Table(name = "user")
@@ -67,6 +70,7 @@ public class User {
     public String getUsername() {
         return username;
     }
+
 
     public String getPassword() {return password;}
 

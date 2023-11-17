@@ -21,17 +21,27 @@
     <div class="row justify-content-center">
 
       <div class="col-4 align-self-center">
-          <div th:if="${ message != '' && message != null }" >
+          <div th:if="${param.error}" >
 
             <div class="alert alert-danger" role="alert">
               <i class="bi bi-exclamation-octagon"></i>
               <br/>
-              [[${message}]]
+              Invalid Username or Password
               <br/>
               Please try again.
             </div>
 
           </div>
+
+        <div th:if="${param.logout}" >
+
+          <div class="alert alert-success" role="alert">
+            <i class="bi bi-exclamation-octagon"></i>
+            <br/>
+            You are now logged out!
+          </div>
+
+        </div>
         </div>
       </div>
 
@@ -39,13 +49,13 @@
 
         <div class="col-4 align-self-center">
 
-          <form th:method="post" th:action="@{/processLogin}">
+          <form method="post" th:action="@{/login}">
             <div class="form-floating mb-3">
-              <input type="text" th:name="username" class="form-control" id="floatingUsername" required>
+              <input type="text" name="username" class="form-control" id="floatingUsername" required>
               <label for="floatingUsername">Username</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" th:name="password" class="form-control" id="floatingPassword" required>
+              <input type="password" name="password" class="form-control" id="floatingPassword" required>
               <label for="floatingPassword">Password</label>
             </div>
 
@@ -56,10 +66,16 @@
                 </div>
 
                 <div class="col align-self-end">
-                  <button type="submit" value="Save" class="btn btn-primary mb-3 p-1 w-50 text-white">Save</button>
+                  <button type="submit" value="Save" class="btn btn-primary mb-3 p-1 w-50 text-white">Sign in</button>
                 </div>
               </div>
             </fieldset>
+
+            <div class="row">
+              <div class="col  align-self-end mb-3" style="float:right">
+                <a href="/createUser" style="text-decoration: none">Create account</a>
+              </div>
+            </div>
 
 
           </form>

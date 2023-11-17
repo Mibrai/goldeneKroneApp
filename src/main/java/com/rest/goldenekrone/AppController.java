@@ -1,12 +1,12 @@
 package com.rest.goldenekrone;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class AppController {
      @GetMapping("/")
     public String home(){
-         return "home";
+         return "redirect:/users";
      }
 }
